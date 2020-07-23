@@ -3,3 +3,4 @@
 /.idea
 /vendor/
 /tests/config.php
+/tests/accesstoken.txt
