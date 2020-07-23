@@ -1,6 +1,8 @@
 小鹅通云服务PHPSDK
 ================
 
+官方文档 <https://api-doc.xiaoe-tech.com/index.php?s=/2&page_id=420>
+
 ## 通过Composer安装
 
 ```
@@ -32,9 +34,10 @@ $rs = $client->execute($req);
 $accessToken = '';
 if ($rs['code'] == 0) {
     // 可储存$accessToken到数据库或文件备用
+    // 根据 expires_in 字段做统一获取
     $accessToken = $rs['data']['access_token'];
 } else {
-    throw new \Exception('Access Token 获取失败');
+    throw new \Exception('Access Token 获取失败: ' . $rs['msg']);
 }
 
 // 获取用户信息
