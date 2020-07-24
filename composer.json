@@ -1,8 +1,13 @@
 {
     "name": "easelify/xiaoet",
     "description": "小鹅通云服务PHPSDK",
+    "keywords": ["小鹅通", "xiaoet"],
     "type": "library",
     "license": "BSD-3-Clause",
+    "support": {
+        "issues": "https://github.com/easelify/xiaoet/issues",
+        "source": "https://github.com/easelify/xiaoet"
+    },
     "authors": [
         {
             "name": "easelify",
