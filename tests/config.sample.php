@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Jun <easelify@gmail.com>
- * @since 1.0.0
+ * @since  1.0.0
  */
 
 // 将此文件复制一份, 重命名为 config.php
