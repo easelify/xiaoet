@@ -6,6 +6,7 @@
 
 namespace xiaoet\request;
 
+use xiaoet\Xiaoet;
 use xiaoet\request\BaseRequest;
 use xiaoet\XiaoetInvalidApiParameterException;
 
@@ -124,8 +125,9 @@ class OrderListGetRequest extends BaseRequest
 
     public function setOrderState(int $order_state)
     {
-        if (!in_array($order_state, [0, 1, 2, 3, 6])) {
-            throw new XiaoetInvalidApiParameterException('订单状态必须是0,1,2,3或6');
+        $availableStatus = Xiaoet::getOrderStatus();
+        if (!in_array($order_state, $availableStatus)) {
+            throw new XiaoetInvalidApiParameterException('订单状态错误');
         }
         $this->_order_state = $order_state;
     }
@@ -142,8 +144,9 @@ class OrderListGetRequest extends BaseRequest
 
     public function setResourceType(int $resource_type)
     {
-        if (!in_array($resource_type, [1, 2, 3, 4, 5, 7])) {
-            throw new XiaoetInvalidApiParameterException('资源类型必须是1,2,3,4,5或7');
+        $availableTypes = Xiaoet::getResourceTypes();
+        if (!in_array($resource_type, $availableTypes)) {
+            throw new XiaoetInvalidApiParameterException('资源类型错误');
         }
         $this->_resource_type = $resource_type;
     }
@@ -160,8 +163,9 @@ class OrderListGetRequest extends BaseRequest
 
     public function setPaymentType(int $payment_type)
     {
-        if (!in_array($payment_type, [2, 3, 4, 5])) {
-            throw new XiaoetInvalidApiParameterException('付费类型必须是2,3,4或5');
+        $availableTypes = [Xiaoet::PAYMENT_SINGLE, Xiaoet::PAYMENT_PACKAGE, Xiaoet::PAYMENT_GIVEAWAY, Xiaoet::PAYMENT_GROUP];
+        if (!in_array($payment_type, $availableTypes)) {
+            throw new XiaoetInvalidApiParameterException('付费类型错误');
         }
         $this->_payment_type = $payment_type;
     }

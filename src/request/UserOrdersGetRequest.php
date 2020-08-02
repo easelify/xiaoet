@@ -6,6 +6,7 @@
 
 namespace xiaoet\request;
 
+use xiaoet\Xiaoet;
 use xiaoet\request\BaseRequest;
 use xiaoet\XiaoetInvalidApiParameterException;
 
@@ -100,8 +101,9 @@ class UserOrdersGetRequest extends BaseRequest
 
     public function setOrderState(int $order_state)
     {
-        if (!in_array($order_state, [0, 1, 2, 6, 10])) {
-            throw new XiaoetInvalidApiParameterException('订单状态必须是0,1,2,6或10');
+        $availableStatus = Xiaoet::getOrderStatus();
+        if (!in_array($order_state, $availableStatus)) {
+            throw new XiaoetInvalidApiParameterException('订单状态错误');
         }
         $this->_order_state = $order_state;
     }
@@ -113,16 +115,14 @@ class UserOrdersGetRequest extends BaseRequest
 
     /**
      * @var int 付费类型
-     * - 2-单笔、3-付费产品包、4-团购、5-单笔的购买赠送、6-产品包的购买赠送、7-问答提问、8-问答偷听
-     * - 11-付费活动报名、12-打赏类型、13-拼团单个资源、14-拼团产品包、15-超级会员
      */
     private $_payment_type;
 
     public function setPaymentType(int $payment_type)
     {
-        $allow_values = [2, 3, 4, 5, 6, 7, 8, 11, 12, 13, 14, 15];
-        if (!in_array($payment_type, $allow_values)) {
-            throw new XiaoetInvalidApiParameterException('付费类型必须是 ' . join(', ', $allow_values) . ' 中的一个');
+        $availableTypes = Xiaoet::getPaymentTypes();
+        if (!in_array($payment_type, $availableTypes)) {
+            throw new XiaoetInvalidApiParameterException('付费类型错误');
         }
         $this->_payment_type = $payment_type;
     }
@@ -134,16 +134,14 @@ class UserOrdersGetRequest extends BaseRequest
 
     /**
      * @var int 资源类型
-     * - 0-无（不通过资源的购买入口）1-图文、2-音频、3-视频、4-直播、5-活动报名、6-专栏/会员、7-社群、8-大专栏
-     * - 20-电子书、21-实物商品、23-超级会员 25-训练营 29-面授课
      */
     private $_resource_type;
 
     public function setResourceType(int $resource_type)
     {
-        $allow_values = [0, 1, 2, 3, 4, 5, 6, 7, 8, 20, 21, 23, 25, 29];
-        if (!in_array($resource_type, $allow_values)) {
-            throw new XiaoetInvalidApiParameterException('资源类型必须是 ' . join(', ', $allow_values) . ' 中的一个');
+        $availableTypes = Xiaoet::getResourceTypes();
+        if (!in_array($resource_type, $availableTypes)) {
+            throw new XiaoetInvalidApiParameterException('资源类型错误');
         }
         $this->_resource_type = $resource_type;
     }

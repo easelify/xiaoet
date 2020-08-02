@@ -64,6 +64,8 @@ class Xiaoet
     const PAYMENT_GROUP_SINGLE = 13;        // 拼团单个资源
     const PAYMENT_GROUP_PACKAGE = 14;       // 拼团产品包
     const PAYMENT_SUPER_VIP = 15;           // 超级会员
+    const PAYMENT_GIVEAWAY = 4;             // 聚合类型:赠送
+    const PAYMENT_GROUP = 5;                // 聚合类型:拼团
 
     public static function getPaymentTypes() : array
     {

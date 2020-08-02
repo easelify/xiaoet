@@ -6,6 +6,7 @@
 
 namespace xiaoet\request;
 
+use xiaoet\Xiaoet;
 use xiaoet\request\BaseRequest;
 use xiaoet\XiaoetInvalidApiParameterException;
 
@@ -40,8 +41,9 @@ class GoodsRelationGetRequest extends BaseRequest
 
     public function setGoodsType(int $goods_type)
     {
-        if (!in_array($goods_type, [5, 6, 8])) {
-            throw new XiaoetInvalidApiParameterException('商品类型必须是5,6或8');
+        $availableTypes = [Xiaoet::TYPE_MEMBER, Xiaoet::TYPE_COLUMN, Xiaoet::TYPE_BIG_COLUMN];
+        if (!in_array($goods_type, $availableTypes)) {
+            throw new XiaoetInvalidApiParameterException('商品类型错误');
         }
         $this->_goods_type = $goods_type;
     }
@@ -88,8 +90,9 @@ class GoodsRelationGetRequest extends BaseRequest
 
     public function setResourceType(array $resource_type)
     {
-        if (!empty(array_diff($resource_type, [1, 2, 3, 4, 6, 20]))) {
-            throw new XiaoetInvalidApiParameterException('资源类型必须是1,2,3,4,6或20');
+        $availableTypes = Xiaoet::getResourceTypes();
+        if (!empty(array_diff($resource_type, $availableTypes))) {
+            throw new XiaoetInvalidApiParameterException('资源类型错误');
         }
         $this->_resource_type = $resource_type;
     }

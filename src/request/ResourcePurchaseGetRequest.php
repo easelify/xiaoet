@@ -6,6 +6,7 @@
 
 namespace xiaoet\request;
 
+use xiaoet\Xiaoet;
 use xiaoet\request\BaseRequest;
 use xiaoet\XiaoetInvalidApiParameterException;
 
@@ -116,16 +117,14 @@ class ResourcePurchaseGetRequest extends BaseRequest
 
     /**
      * @var int 资源类型
-     * - 1-图文、2-音频、3-视频、4-直播、5-活动报名、6-专栏/会员、7-社群、8-大专栏
-     * - 20-电子书、21-实物商品、23-超级会员 25-训练营 29-面授课
      */
     private $_resource_type;
 
     public function setResourceType(int $resource_type)
     {
-        $allowType = [1, 2, 3, 4, 5, 6, 7, 8, 20, 21, 23, 25, 29];
-        if (!in_array($resource_type, $allowType)) {
-            throw new XiaoetInvalidApiParameterException('资源类型必须是 ' . join(',', $allowType) . ' 中的一个');
+        $availableTypes = Xiaoet::getResourceTypes();
+        if (!in_array($resource_type, $availableTypes)) {
+            throw new XiaoetInvalidApiParameterException('资源类型错误');
         }
         $this->_resource_type = $resource_type;
     }
@@ -142,8 +141,9 @@ class ResourcePurchaseGetRequest extends BaseRequest
 
     public function setPaymentType(int $payment_type)
     {
-        if (!in_array($payment_type, [2, 3, 15])) {
-            throw new XiaoetInvalidApiParameterException('付费类型必须是2,3或15');
+        $availableTypes = [Xiaoet::PAYMENT_SINGLE, Xiaoet::PAYMENT_PACKAGE, Xiaoet::PAYMENT_SUPER_VIP];
+        if (!in_array($payment_type, $availableTypes)) {
+            throw new XiaoetInvalidApiParameterException('付费类型错误');
         }
         $this->_payment_type = $payment_type;
     }
