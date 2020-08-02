@@ -9,6 +9,8 @@
 composer require easelify/xiaoet
 ```
 
+国内用户建议使用[阿里云的Composer镜像](https://developer.aliyun.com/composer)下载速度快，本项目默认也是使用该镜像！
+
 ## 使用范例
 
 ```php
@@ -48,6 +50,12 @@ print_r($rs);
 ```
 
 更多范例详见 ./tests 目录
+
+## 交流
+
+欢迎关注公众号：不用上班的程序员
+
+![qrcode](docs/mp_qrcode.jpg)
 
 ## Licensing 
 
